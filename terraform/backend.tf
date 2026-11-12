@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket = "sandip-demo-tfstate-bucket"
-    key    = "eks/terraform.tfstate"
-    region = "us-west-2"
+    bucket = "nehru-demo010-tfstate-bucket"
+    key    = "three-tier-eks/terraform.tfstate"
+    region = "ap-south-1"
   }
 }
 
