@@ -1,47 +1,47 @@
-variable "cluster_name" {
-  type = string
-  default = "my-eks-cluster"
-}
-
-variable "cluster_version" {
-  type = number
-  default = 1.25
-}
-
 variable "region" {
-  type = string
-  default = "us-west-2"
+  type    = string
+  default = "ap-south-1"
 }
 
 variable "availability_zones" {
-  type = list
-  default = ["us-west-2a", "us-west-2b"]
+  type    = list(string)
+  default = ["ap-south-1a", "ap-south-1b"]
 }
 
+variable "cluster_name" {
+  type    = string
+  default = "three-tier-eks"
+}
 
+# Must be a string ("1.35"), not a number, or 1.30 would become 1.3.
+# Check the versions EKS currently supports before changing this.
+variable "cluster_version" {
+  type    = string
+  default = "1.35"
+}
 
-variable "addons" {
-  type = list(object({
-    name    = string
-    version = string
-  }))
+variable "node_instance_types" {
+  type    = list(string)
+  default = ["t3.medium"]
+}
 
-  default = [
-    {
-      name    = "kube-proxy"
-      version = "v1.25.6-eksbuild.1"
-    },
-    {
-      name    = "vpc-cni"
-      version = "v1.12.2-eksbuild.1"
-    },
-    {
-      name    = "coredns"
-      version = "v1.9.3-eksbuild.2"
-    },
-    {
-      name    = "aws-ebs-csi-driver"
-      version = "v1.23.0-eksbuild.1"
-    }
-  ]
+variable "node_desired_size" {
+  type    = number
+  default = 2
+}
+
+variable "node_min_size" {
+  type    = number
+  default = 1
+}
+
+variable "node_max_size" {
+  type    = number
+  default = 3
+}
+
+# The Cluster Autoscaler minor version should match the Kubernetes version.
+variable "autoscaler_image_tag" {
+  type    = string
+  default = "v1.35.1"
 }
